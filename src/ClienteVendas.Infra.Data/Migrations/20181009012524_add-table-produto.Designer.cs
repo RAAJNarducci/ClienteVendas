@@ -4,14 +4,16 @@ using ClienteVendas.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ClienteVendas.Infra.Data.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20181009012524_add-table-produto")]
+    partial class addtableproduto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,46 +129,11 @@ namespace ClienteVendas.Infra.Data.Migrations
                     b.ToTable("Produto");
                 });
 
-            modelBuilder.Entity("ClienteVendas.Domain.Entities.Venda", b =>
-                {
-                    b.Property<int>("ClienteId");
-
-                    b.Property<int>("ProdutoId");
-
-                    b.Property<DateTime>("DataVenda")
-                        .HasColumnType("datetime");
-
-                    b.Property<int>("Id");
-
-                    b.Property<int>("Quantidade");
-
-                    b.HasKey("ClienteId", "ProdutoId");
-
-                    b.HasAlternateKey("Id");
-
-                    b.HasIndex("ProdutoId");
-
-                    b.ToTable("Venda");
-                });
-
             modelBuilder.Entity("ClienteVendas.Domain.Entities.Cliente", b =>
                 {
                     b.HasOne("ClienteVendas.Domain.Entities.Endereco", "Endereco")
                         .WithOne("Cliente")
                         .HasForeignKey("ClienteVendas.Domain.Entities.Cliente", "EnderecoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ClienteVendas.Domain.Entities.Venda", b =>
-                {
-                    b.HasOne("ClienteVendas.Domain.Entities.Cliente")
-                        .WithMany("Vendas")
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ClienteVendas.Domain.Entities.Produto")
-                        .WithMany("Vendas")
-                        .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -9,22 +9,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ClienteVendas.Services.Api.Controllers
 {
-    public class ClienteController : BaseController
+    public class ProdutoController : BaseController
     {
-        private readonly IClienteAppService _clienteAppService;
+        private readonly IProdutoAppService _produtoAppService;
 
-        public ClienteController(IClienteAppService clienteAppService)
+        public ProdutoController(IProdutoAppService produtoAppService)
         {
-            _clienteAppService = clienteAppService;
+            _produtoAppService = produtoAppService;
         }
 
         [HttpGet]
         [Route("findById")]
-        public ClienteViewModel FindById(int id)
+        public ProdutoViewModel FindById(int id)
         {
             try
             {
-                return _clienteAppService.FindById(id);
+                return _produtoAppService.FindById(id);
             }
             catch (Exception ex)
             {
@@ -33,11 +33,11 @@ namespace ClienteVendas.Services.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ClienteViewModel> Get()
+        public IEnumerable<ProdutoViewModel> Get()
         {
             try
             {
-                return _clienteAppService.GetAll();
+                return _produtoAppService.GetAll();
             }
             catch (Exception ex)
             {
@@ -46,12 +46,11 @@ namespace ClienteVendas.Services.Api.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] ClienteViewModel clienteViewModel)
+        public void Post([FromBody] ProdutoViewModel produtoViewModel)
         {
             try
             {
-                clienteViewModel.DataNascimento = DateTime.Now;
-                _clienteAppService.Add(clienteViewModel);
+                _produtoAppService.Add(produtoViewModel);
             }
             catch (Exception ex)
             {
@@ -60,12 +59,11 @@ namespace ClienteVendas.Services.Api.Controllers
         }
 
         [HttpPut]
-        public void Put([FromBody] ClienteViewModel clienteViewModel)
+        public void Put([FromBody] ProdutoViewModel produtoViewModel)
         {
             try
             {
-                clienteViewModel.DataNascimento = DateTime.Now;
-                _clienteAppService.Update(clienteViewModel);
+                _produtoAppService.Update(produtoViewModel);
             }
             catch (Exception ex)
             {

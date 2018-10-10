@@ -14,11 +14,15 @@ namespace ClienteVendas.Infra.Data.Context
     {
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Cliente> Pessoas { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Venda> Vendas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EnderecoMap());
             modelBuilder.ApplyConfiguration(new ClienteMap());
+            modelBuilder.ApplyConfiguration(new ProdutoMap());
+            modelBuilder.ApplyConfiguration(new VendaMap());
 
             base.OnModelCreating(modelBuilder);
         }
