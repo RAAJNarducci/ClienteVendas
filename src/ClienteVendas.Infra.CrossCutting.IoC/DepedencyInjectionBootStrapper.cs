@@ -24,14 +24,17 @@ namespace ClienteVendas.Infra.CrossCutting.IoC
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<IConfigurationProvider>(), sp.GetService));
             services.AddScoped<IClienteAppService, ClienteAppService>();
             services.AddScoped<IProdutoAppService, ProdutoAppService>();
+            services.AddScoped<IVendaAppService, VendaAppService>();
 
             //Domain
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IVendaService, VendaService>();
 
             //Infra.Data
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IVendaRepository, VendaRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<MainContext>();
         }

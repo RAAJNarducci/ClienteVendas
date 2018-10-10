@@ -14,6 +14,7 @@ namespace ClienteVendas.Application.AutoMapper
             CreateMap<Cliente, ClienteViewModel>();
             CreateMap<Endereco, EnderecoViewModel>();
             CreateMap<Produto, ProdutoViewModel>();
+            CreateMap<Venda, VendaViewModel>();
         }
     }
 }
