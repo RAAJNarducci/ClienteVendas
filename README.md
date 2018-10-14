@@ -1,6 +1,6 @@
 # ClienteVendas
 
-##Dependences
+## Dependences
 1. Visual Studio 2017 Community
 2. .NET Core 2.0 ou superior (SDK e runtime)
 
