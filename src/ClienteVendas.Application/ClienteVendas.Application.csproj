@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ClienteVendas.Data.CrossCutting.Constants\ClienteVendas.Data.CrossCutting.Helpers.csproj" />
     <ProjectReference Include="..\ClienteVendas.Domain\ClienteVendas.Domain.csproj" />
   </ItemGroup>
 

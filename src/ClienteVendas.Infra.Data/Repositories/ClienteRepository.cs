@@ -45,6 +45,54 @@ namespace ClienteVendas.Infra.Data.Repositories
             }
         }
 
+        public IEnumerable<Cliente> BuscarClientes(string nome, string cpf, int pagina, int quantidadePagina, out int total)
+        {
+            using (SqlConnection conexao = new SqlConnection(
+                GetConnectionString()))
+            {
+                StringBuilder sbQuerySelect = new StringBuilder();
+                StringBuilder sbQueryWhere = new StringBuilder();
+                StringBuilder sbQueryPaginate = new StringBuilder();
+                sbQuerySelect.Append(
+                    "SELECT * " +
+                    "FROM dbo.Cliente C " +
+                    "INNER JOIN dbo.Endereco E ON C.EnderecoId = E.Id ");
+
+                #region WHERE
+                var condicaoWhere = "WHERE ";
+                if (nome != null)
+                {
+                    sbQueryWhere.Append($"{condicaoWhere} C.Nome LIKE '%{nome}%' collate Latin1_General_CI_AI ");
+                    condicaoWhere = "AND ";
+                }
+                if (cpf != null)
+                {
+                    sbQueryWhere.Append($"{condicaoWhere} C.Cpf = {cpf} ");
+                    condicaoWhere = "AND ";
+                }
+                #endregion
+
+                #region PAGINATE
+                sbQueryPaginate.Append("ORDER BY C.Nome ");
+                sbQueryPaginate.Append($"OFFSET {(pagina - 1) * quantidadePagina} ROWS ");
+                sbQueryPaginate.Append($"FETCH NEXT {quantidadePagina} ROWS ONLY ");
+                #endregion
+
+                var query = string.Concat(sbQuerySelect.ToString(), sbQueryWhere.ToString(), sbQueryPaginate.ToString());
+
+                var pessoasJoin = conexao.Query<Cliente, Endereco, Cliente>(query, (c, e) =>
+                {
+                    c.Endereco = e;
+                    return c;
+                }, splitOn: "EnderecoId");
+
+                var queryCount = string.Concat("SELECT COUNT(C.Id) FROM dbo.Cliente C INNER JOIN dbo.Endereco E ON C.EnderecoId = E.Id ", sbQueryWhere.ToString());
+
+                total = conexao.Query<int>(queryCount).SingleOrDefault();
+                return pessoasJoin;
+            }
+        }
+
         public string GetConnectionString()
         {
             var config = new ConfigurationBuilder()

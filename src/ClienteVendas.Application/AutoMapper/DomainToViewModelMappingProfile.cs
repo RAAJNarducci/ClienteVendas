@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ClienteVendas.Application.ViewModels;
+using ClienteVendas.Data.CrossCutting.Helpers;
 using ClienteVendas.Domain.Entities;
 using System;
 using System.Collections.Generic;

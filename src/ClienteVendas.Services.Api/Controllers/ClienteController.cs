@@ -19,6 +19,13 @@ namespace ClienteVendas.Services.Api.Controllers
         }
 
         [HttpGet]
+        [Route("BuscarClientes")]
+        public ClienteResponseViewModel BuscarClientes(ClienteConsultaViewModel clienteConsultaViewModel)
+        {
+            return _clienteAppService.BuscarClientes(clienteConsultaViewModel);
+        }
+
+        [HttpGet]
         [Route("findById")]
         public ClienteViewModel FindById(int id)
         {
@@ -50,7 +57,6 @@ namespace ClienteVendas.Services.Api.Controllers
         {
             try
             {
-                clienteViewModel.DataNascimento = DateTime.Now;
                 _clienteAppService.Add(clienteViewModel);
             }
             catch (Exception ex)
@@ -64,7 +70,6 @@ namespace ClienteVendas.Services.Api.Controllers
         {
             try
             {
-                clienteViewModel.DataNascimento = DateTime.Now;
                 _clienteAppService.Update(clienteViewModel);
             }
             catch (Exception ex)

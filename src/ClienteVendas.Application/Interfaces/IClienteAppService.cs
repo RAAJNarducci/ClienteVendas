@@ -7,5 +7,6 @@ namespace ClienteVendas.Application.Interfaces
 {
     public interface IClienteAppService : IAppServiceBase<ClienteViewModel>
     {
+        ClienteResponseViewModel BuscarClientes(ClienteConsultaViewModel clienteConsultaViewModel);
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClienteVendas.Infra.Data.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20181010012444_add-table-vendas")]
-    partial class addtablevendas
+    [Migration("20181014172404_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,6 +61,11 @@ namespace ClienteVendas.Infra.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Cliente");
+
+                    b.HasData(
+                        new { Id = 1, Ativo = true, Celular = "16991388733", Cpf = "41282809322", DataCadastro = new DateTime(2018, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), DataNascimento = new DateTime(1994, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "cliente01@gmail.com", EnderecoId = 1, Nome = "Cliente 01" },
+                        new { Id = 2, Ativo = true, Celular = "16981722833", Cpf = "39902938222", DataCadastro = new DateTime(2018, 10, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), DataNascimento = new DateTime(1989, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "cliente02@gmail.com", EnderecoId = 2, Nome = "Cliente 02" }
+                    );
                 });
 
             modelBuilder.Entity("ClienteVendas.Domain.Entities.Endereco", b =>
@@ -106,6 +111,11 @@ namespace ClienteVendas.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Endereco");
+
+                    b.HasData(
+                        new { Id = 1, Bairro = "Centro", CEP = "14801790", Cidade = "Araraquara", Complemento = "Casa", Estado = "SP", Logradouro = "Av. 13 de maio", Numero = "999" },
+                        new { Id = 2, Bairro = "Jardim Paulista", CEP = "15900000", Cidade = "Taquaritinga", Complemento = "Casa", Estado = "SP", Logradouro = "Rua 22", Numero = "111" }
+                    );
                 });
 
             modelBuilder.Entity("ClienteVendas.Domain.Entities.Produto", b =>
@@ -127,10 +137,18 @@ namespace ClienteVendas.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Produto");
+
+                    b.HasData(
+                        new { Id = 1, DataCadastro = new DateTime(2018, 10, 14, 14, 24, 3, 128, DateTimeKind.Local), Descricao = "Celular Motorola G6", Valor = 1100.00m },
+                        new { Id = 2, DataCadastro = new DateTime(2018, 10, 14, 14, 24, 3, 134, DateTimeKind.Local), Descricao = "Celular LG Q6", Valor = 1200.00m },
+                        new { Id = 3, DataCadastro = new DateTime(2018, 10, 14, 14, 24, 3, 134, DateTimeKind.Local), Descricao = "Celular Samsung J7", Valor = 1300.00m }
+                    );
                 });
 
             modelBuilder.Entity("ClienteVendas.Domain.Entities.Venda", b =>
                 {
+                    b.Property<int>("Id");
+
                     b.Property<int>("ClienteId");
 
                     b.Property<int>("ProdutoId");
@@ -138,17 +156,23 @@ namespace ClienteVendas.Infra.Data.Migrations
                     b.Property<DateTime>("DataVenda")
                         .HasColumnType("datetime");
 
-                    b.Property<int>("Id");
-
                     b.Property<int>("Quantidade");
 
-                    b.HasKey("ClienteId", "ProdutoId");
+                    b.HasKey("Id", "ClienteId", "ProdutoId");
 
-                    b.HasAlternateKey("Id");
+                    b.HasIndex("ClienteId");
 
                     b.HasIndex("ProdutoId");
 
                     b.ToTable("Venda");
+
+                    b.HasData(
+                        new { Id = 1, ClienteId = 1, ProdutoId = 1, DataVenda = new DateTime(2018, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), Quantidade = 1 },
+                        new { Id = 2, ClienteId = 2, ProdutoId = 1, DataVenda = new DateTime(2018, 9, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), Quantidade = 1 },
+                        new { Id = 3, ClienteId = 1, ProdutoId = 2, DataVenda = new DateTime(2018, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), Quantidade = 2 },
+                        new { Id = 4, ClienteId = 2, ProdutoId = 3, DataVenda = new DateTime(2018, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), Quantidade = 1 },
+                        new { Id = 5, ClienteId = 1, ProdutoId = 3, DataVenda = new DateTime(2018, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), Quantidade = 2 }
+                    );
                 });
 
             modelBuilder.Entity("ClienteVendas.Domain.Entities.Cliente", b =>
@@ -161,12 +185,12 @@ namespace ClienteVendas.Infra.Data.Migrations
 
             modelBuilder.Entity("ClienteVendas.Domain.Entities.Venda", b =>
                 {
-                    b.HasOne("ClienteVendas.Domain.Entities.Cliente")
+                    b.HasOne("ClienteVendas.Domain.Entities.Cliente", "Cliente")
                         .WithMany("Vendas")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ClienteVendas.Domain.Entities.Produto")
+                    b.HasOne("ClienteVendas.Domain.Entities.Produto", "Produto")
                         .WithMany("Vendas")
                         .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade);

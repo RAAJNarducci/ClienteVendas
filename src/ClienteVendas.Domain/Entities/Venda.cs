@@ -11,6 +11,10 @@ namespace ClienteVendas.Domain.Entities
         public int ProdutoId { get; set; }
         public DateTime DataVenda { get; set; }
         public int Quantidade { get; set; }
+
+        public virtual Cliente Cliente { get; set; }
+        public virtual Produto Produto { get; set; }
+
         public override bool IsValid()
         {
             return ValidationResult.IsValid;

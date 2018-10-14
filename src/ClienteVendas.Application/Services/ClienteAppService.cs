@@ -15,5 +15,22 @@ namespace ClienteVendas.Application.Services
         public ClienteAppService(IUnitOfWork uow, IClienteService service, IMapper mapper) : base(uow, service, mapper)
         {
         }
+
+        public ClienteResponseViewModel BuscarClientes(ClienteConsultaViewModel clienteConsultaViewModel)
+        {
+            int total = 0;
+
+            var clienteMapper = _mapper.Map<List<ClienteViewModel>>(_service.BuscarClientes(
+                clienteConsultaViewModel.Nome, 
+                clienteConsultaViewModel.Cpf, 
+                clienteConsultaViewModel.Pagina, 
+                clienteConsultaViewModel.QuantidadePagina, 
+                out total));
+            return new ClienteResponseViewModel
+            {
+                Clientes = clienteMapper,
+                TotalItens = total
+            };
+        }
     }
 }

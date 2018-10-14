@@ -12,5 +12,15 @@ namespace ClienteVendas.Domain.Services
         public VendaService(IVendaRepository repository) : base(repository)
         {
         }
+
+        public IEnumerable<Venda> BuscarVendasPorClienteId(int clienteId)
+        {
+            return _repository.BuscarVendasPorClienteId(clienteId);
+        }
+
+        public IEnumerable<Venda> BuscarVendas(DateTime? dataInicio, DateTime? dataFim)
+        {
+            return _repository.BuscarVendas(dataInicio, dataFim);
+        }
     }
 }

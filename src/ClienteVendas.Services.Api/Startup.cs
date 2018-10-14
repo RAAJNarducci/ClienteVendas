@@ -89,6 +89,7 @@ namespace ClienteVendas.Services.Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
+                c.RoutePrefix = "";
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
             });
         }

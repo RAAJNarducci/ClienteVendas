@@ -8,5 +8,7 @@ namespace ClienteVendas.Domain.Interfaces
 {
     public interface IVendaService : IServiceBase<Venda>
     {
+        IEnumerable<Venda> BuscarVendas(DateTime? dataInicio, DateTime? dataFim);
+        IEnumerable<Venda> BuscarVendasPorClienteId(int clienteId);
     }
 }

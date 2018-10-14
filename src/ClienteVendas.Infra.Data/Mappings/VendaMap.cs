@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace ClienteVendas.Infra.Data.Mappings
@@ -11,8 +12,7 @@ namespace ClienteVendas.Infra.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Venda> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.HasKey(x => new { x.ClienteId, x.ProdutoId });
+            builder.HasKey(x => new { x.Id, x.ClienteId, x.ProdutoId });
 
             builder.Property(x => x.ClienteId)
                 .IsRequired();
@@ -25,6 +25,14 @@ namespace ClienteVendas.Infra.Data.Mappings
 
             builder.Property(x => x.Quantidade)
                 .IsRequired();
+
+            builder.HasOne(x => x.Cliente)
+            .WithMany(c => c.Vendas)
+            .HasForeignKey(c => c.ClienteId);
+
+            builder.HasOne(x => x.Produto)
+            .WithMany(c => c.Vendas)
+            .HasForeignKey(c => c.ProdutoId);
 
             builder.Ignore(c => c.ValidationResult);
             builder.Ignore(c => c.CascadeMode);

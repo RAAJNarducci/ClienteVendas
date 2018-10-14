@@ -8,5 +8,6 @@ namespace ClienteVendas.Domain.Interfaces
 {
     public interface IClienteService : IServiceBase<Cliente>
     {
+        IEnumerable<Cliente> BuscarClientes(string nome, string cpf, int pagina, int quantidadePagina, out int total);
     }
 }

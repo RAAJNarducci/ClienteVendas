@@ -6,6 +6,15 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20181010012228_add-table-vendas.cs" />
+    <Compile Remove="Migrations\20181014030832_seed-cliente-endereco.cs" />
+    <Compile Remove="Migrations\20181014032304_seed-values.cs" />
+    <Compile Remove="Migrations\20181014032600_seed-values.cs" />
+    <Compile Remove="Migrations\20181014032844_seed-values.cs" />
+    <Compile Remove="Migrations\20181014033336_seed-values.cs" />
+    <Compile Remove="Migrations\20181014145320_seed-values.cs" />
+    <Compile Remove="Migrations\20181014150713_seed-values-sale.cs" />
+    <Compile Remove="Migrations\20181014165527_seed-clients.cs" />
+    <Compile Remove="Migrations\20181014171059_seed-clients.cs" />
   </ItemGroup>
   
   <ItemGroup>

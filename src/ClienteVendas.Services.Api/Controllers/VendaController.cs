@@ -19,6 +19,38 @@ namespace ClienteVendas.Services.Api.Controllers
         }
 
         [HttpGet]
+        [Route("BuscarVendasPorClienteId")]
+        public IEnumerable<VendaViewModel> BuscarVendasPorClienteId(int clienteId)
+        {
+            try
+            {
+                return _vendaAppService.BuscarVendasPorClienteId(clienteId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpGet]
+        [Route("BuscarVendas")]
+        public List<GraficoVendaViewModel> BuscarVendas(GraficoVendaConsultaViewModel graficoVendaConsultaViewModel)
+        {
+            try
+            {
+                if (!graficoVendaConsultaViewModel.DataInicio.HasValue)
+                    graficoVendaConsultaViewModel.DataInicio = DateTime.Now.Date.AddDays(-90);
+                if (!graficoVendaConsultaViewModel.DataFim.HasValue)
+                    graficoVendaConsultaViewModel.DataFim = DateTime.Now.Date;
+                return _vendaAppService.BuscarVendas(graficoVendaConsultaViewModel);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpGet]
         [Route("findById")]
         public VendaViewModel FindById(int id)
         {

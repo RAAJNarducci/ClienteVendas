@@ -12,5 +12,10 @@ namespace ClienteVendas.Domain.Services
         public ClienteService(IClienteRepository repository) : base(repository)
         {
         }
+
+        public IEnumerable<Cliente> BuscarClientes(string nome, string cpf, int pagina, int quantidadePagina, out int total)
+        {
+            return _repository.BuscarClientes(nome, cpf, pagina, quantidadePagina, out total);
+        }
     }
 }
