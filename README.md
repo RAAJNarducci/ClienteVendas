@@ -1,5 +1,9 @@
 # ClienteVendas
 
+##Dependences
+1. Visual Studio 2017 Community
+2. .NET Core ^2.0 Runtime
+
 ## IDE
 1. Visual Studio 2017 Community
 
